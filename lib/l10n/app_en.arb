@@ -1,0 +1,8 @@
+{
+  "userLoginViewTitle": "Welcome",
+  "userLoginViewSubtitle" : "Bread Community",
+  "userLoginViewEmail" : "Please enter your e-mail",
+  "userLoginViewPassword" : "Please enter a password",
+  "userLoginViewLogin" : "Login",
+  "userLoginViewSignUP" : "SighUp"
+}

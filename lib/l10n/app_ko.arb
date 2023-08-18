@@ -1,0 +1,8 @@
+{
+  "userLoginViewTitle": "환영 합니다.",
+  "userLoginViewSubtitle" : "빵 커뮤니티 입니다.",
+  "userLoginViewEmail" : "이메일을 입력해주세요",
+  "userLoginViewPassword" : "비밀번호를 입력해주세요",
+  "userLoginViewLogin" : "로그인",
+  "userLoginViewSignUP" : "회원가입"
+}
