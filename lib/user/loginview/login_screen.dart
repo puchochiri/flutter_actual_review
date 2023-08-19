@@ -12,60 +12,74 @@ class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultLayout(
-      child: SafeArea(
-        child: Column(
-          children: [
-            _Title(),
-            _SubTitle(),
-            Image.asset(
-              'asset/img/misc/logo.png',
-              width: MediaQuery.of(context).size.width / 3 * 2,
-            ),
-            CustomTextFormField(
-              hintText: AppLocalizations.of(context).userLoginViewEmail,
-              onChanged: (String value) {},
-            ),
-            CustomTextFormField(
-              hintText: AppLocalizations.of(context).userLoginViewPassword,
-              onChanged: (String value) {},
-              obscureText: true,
-            ),
-            Row(
+      child: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: SafeArea(
+          top: true,
+          bottom: false,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
               children: [
-                Expanded(
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: PRIMARY_COLOR,
-                      ),
-                      child: Text(
-                        AppLocalizations.of(context).userLoginViewLogin, //로그인
-                      )),
+                _Title(),
+                const SizedBox(height: 16.0),
+                _SubTitle(),
+                Image.asset(
+                  'asset/img/misc/logo.png',
+                  width: MediaQuery.of(context).size.width / 3 * 2,
                 ),
-              ],
-            ),
-            Row(
-              children: [
-                Expanded(
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => SignUp()),
-                      );
-                    },
-                    style: TextButton.styleFrom(
-                      foregroundColor: Colors.black,
-                    ),
-                    child: Text(
-                      AppLocalizations.of(context).userLoginViewSignUP, // 회원가입
-                    ),
+                CustomTextFormField(
+                  hintText: AppLocalizations.of(context).userLoginViewEmail,
+                  onChanged: (String value) {},
+                ),
+                const SizedBox(height: 16.0),
+                CustomTextFormField(
+                  hintText: AppLocalizations.of(context).userLoginViewPassword,
+                  onChanged: (String value) {},
+                  obscureText: true,
+                ),
+                SizedBox(height: 16.0),
+                Container(
+                  height: 30.0,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: PRIMARY_COLOR,
+                            ),
+                            child: Text(
+                              AppLocalizations.of(context).userLoginViewLogin, //로그인
+                            )),
+                      ),
+                    ],
                   ),
                 ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
+                        },
+                        style: TextButton.styleFrom(
+                          foregroundColor: Colors.black,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context).userLoginViewSignUP, // 회원가입
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                _SocialLogin(),
               ],
             ),
-            _SocialLogin(),
-          ],
+          ),
         ),
       ),
     );

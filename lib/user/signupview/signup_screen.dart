@@ -11,44 +11,70 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            _Title(),
-            SizedBox(height: 20),
-            CustomTextFormField(
-                //hintText: '사용자 이름', // TODO 다국어
-                labelText: '사용자 이름',
-                onChanged: (String value) {},
-            ),
-            CustomTextFormField(
-                labelText: '이메일',     // TODO 다국어
-                onChanged: (String value) {},
-            ),
-            CustomTextFormField(
-                labelText: '비밀번호',    // TODO 다국어
-                onChanged: (String value) {}
-            ),
-            CustomTextFormField(
-                labelText: '비밀번호 확인',      // TODO 다국어
-                onChanged: (String value) {}
-            ),
-            SizedBox(height: 20),
-
-            ElevatedButton(
-                onPressed: () {
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: PRIMARY_COLOR,
+      body: SingleChildScrollView(
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
+            child: Column(
+              children: [
+                _Title(),
+                Image.asset(
+                  'asset/img/misc/logo.png',
+                  width: MediaQuery.of(context).size.width / 3 * 2,
                 ),
-                child: Text('회원가입')     // TODO 다국어
+                SizedBox(height: 20),
+                CustomTextFormField(
+                    //hintText: '사용자 이름', // TODO 다국어
+                    labelText: '사용자 이름',
+                    onChanged: (String value) {},
+                ),
+                SizedBox(height: 16.0),
+                CustomTextFormField(
+                    labelText: '이메일',     // TODO 다국어
+                    onChanged: (String value) {},
+                ),
+                SizedBox(height: 16.0),
+                CustomTextFormField(
+                    labelText: '비밀번호',    // TODO 다국어
+                    onChanged: (String value) {}
+                ),
+                SizedBox(height: 16.0),
+                CustomTextFormField(
+                    labelText: '비밀번호 확인',      // TODO 다국어
+                    onChanged: (String value) {}
+                ),
+                SizedBox(height: 20),
+
+                Container(
+                  height: 40,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+
+
+                            onPressed: () {
+                            },
+
+
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: PRIMARY_COLOR,
+                            ),
+                            child: Text('회원가입')     // TODO 다국어
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+
+
+
+              ],
+
             ),
-
-
-
-
-          ],
-
+          ),
         ),
       ),
     );
