@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_actual_review/common/component/colors_utils.dart';
+import 'package:flutter_actual_review/common/component/custom_button.dart';
 import 'package:flutter_actual_review/common/component/custom_text_form_field.dart';
 import 'package:flutter_actual_review/common/const/colors.dart';
 import 'package:flutter_actual_review/common/layout/default_layout.dart';
+import 'package:flutter_actual_review/home/homeview/home_screen.dart';
 import 'package:flutter_actual_review/user/signupview/signup_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,73 +16,78 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultLayout(
-      child: SingleChildScrollView(
+    TextEditingController _passwordTextController = TextEditingController();
+    TextEditingController _emailTextController = TextEditingController();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SingleChildScrollView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-        child: SafeArea(
-          top: true,
-          bottom: false,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                _Title(),
-                const SizedBox(height: 16.0),
-                _SubTitle(),
-                Image.asset(
-                  'asset/img/misc/logo.png',
-                  width: MediaQuery.of(context).size.width / 3 * 2,
-                ),
-                CustomTextFormField(
-                  hintText: AppLocalizations.of(context).userLoginViewEmail,
-                  onChanged: (String value) {},
-                ),
-                const SizedBox(height: 16.0),
-                CustomTextFormField(
-                  hintText: AppLocalizations.of(context).userLoginViewPassword,
-                  onChanged: (String value) {},
-                  obscureText: true,
-                ),
-                SizedBox(height: 16.0),
-                Container(
-                  height: 30.0,
-                  child: Row(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: SafeArea(
+            top: true,
+            bottom: false,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  _Title(),
+                  const SizedBox(height: 16.0),
+                  _SubTitle(),
+                  Image.asset(
+                    'asset/img/misc/logo.png',
+                    width: MediaQuery.of(context).size.width / 3 * 2,
+                  ),
+                  CustomTextFormField(
+                    controller: _emailTextController,
+                    icon: Icons.email_outlined,
+                    hintText: AppLocalizations.of(context).userLoginViewEmail,
+                    onChanged: (String value) {},
+                  ),
+                  const SizedBox(height: 16.0),
+                  CustomTextFormField(
+                    controller: _passwordTextController,
+                    icon: Icons.lock_outline,
+                    hintText: AppLocalizations.of(context).userLoginViewPassword,
+                    onChanged: (String value) {},
+                    obscureText: true,
+                  ),
+                  SizedBox(height: 16.0),
+                  signInSignUpButton(context, true, () {
+                    FirebaseAuth.instance.signInWithEmailAndPassword(
+                        email: _emailTextController.text
+                        , password: _passwordTextController.text).then((value) {
+                          print('Sign in');
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => HomeScreen()));
+
+                    });
+                  }),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: PRIMARY_COLOR,
-                            ),
-                            child: Text(
-                              AppLocalizations.of(context).userLoginViewLogin, //로그인
-                            )),
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Signup()),
+                            );
+                          },
+                          style: TextButton.styleFrom(
+                            foregroundColor: Colors.black,
+                          ),
+                          child: Text(
+                            AppLocalizations.of(context).userLoginViewSignUP, // 회원가입
+                          ),
+                        ),
                       ),
                     ],
                   ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextButton(
-                        onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
-                          );
-                        },
-                        style: TextButton.styleFrom(
-                          foregroundColor: Colors.black,
-                        ),
-                        child: Text(
-                          AppLocalizations.of(context).userLoginViewSignUP, // 회원가입
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                _SocialLogin(),
-              ],
+                  _SocialLogin(),
+                ],
+              ),
             ),
           ),
         ),
@@ -85,6 +95,8 @@ class LoginScreen extends StatelessWidget {
     );
   }
 }
+
+
 
 class _Title extends StatelessWidget {
   const _Title({super.key});

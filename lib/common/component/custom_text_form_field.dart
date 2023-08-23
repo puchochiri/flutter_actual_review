@@ -3,6 +3,9 @@ import 'package:flutter_actual_review/common/const/colors.dart';
 
 class CustomTextFormField extends StatelessWidget {
   //정의
+  final TextEditingController? controller;
+  final TextEditingController? controllerPassword;
+  final IconData? icon;
   final String? labelText;
   final String? hintText;
   final String? errorText;
@@ -16,6 +19,9 @@ class CustomTextFormField extends StatelessWidget {
   const CustomTextFormField(
       {
         required this.onChanged,
+        this.controllerPassword,
+        this.controller,
+        this.icon,
         this.labelText,
         this.obscureText = false,
         this.autofocus = false,
@@ -33,12 +39,21 @@ class CustomTextFormField extends StatelessWidget {
       )
     );
     return TextFormField(
+      controller: controller != null ? controller : null,
+      validator: controller == controllerPassword ? ((value) {
+        if(value != controllerPassword!.text){
+          return 'Passwords do not match';
+        }
+        return null;
+      }
+      ) : null,
       cursorColor: PRIMARY_COLOR,
       // 비밀번호 입력할떄
       obscureText: obscureText,
       autofocus: autofocus,
       onChanged: onChanged,
       decoration: InputDecoration(
+        prefixIcon: icon != null ? Icon(icon, color: Colors.grey) : null,
         labelText: labelText,
         contentPadding: EdgeInsets.all(20),
         hintText: hintText,
