@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_actual_review/common/const/colors.dart';
+import 'package:flutter_actual_review/database/drift_database.dart';
 
 import 'main_calendar.dart';
 
@@ -10,8 +11,14 @@ class CustomTextField extends StatelessWidget {
   final bool isTime;
   final FormFieldSetter<String> onSaved;
   final FormFieldValidator<String> validator;
+  String? timecontent;
+  Schedule? schedule;    // 선택뇐 날짜 스캐줄 정보
 
-  const CustomTextField({
+
+
+  CustomTextField({
+    this.timecontent,
+    this.schedule,
     required this.label,
     required this.isTime,
     required this.onSaved,
@@ -34,6 +41,7 @@ class CustomTextField extends StatelessWidget {
         Expanded(
           flex: isTime ? 0 : 1,
           child: TextFormField(
+            initialValue: schedule != null ? timecontent.toString() : null,
             onSaved: onSaved,
             validator: validator,
             cursorColor: Colors.grey, //  커서 색상 변경
